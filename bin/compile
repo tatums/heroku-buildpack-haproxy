@@ -45,7 +45,8 @@ if [ ! -d $CACHE_DIR/$LUA_ARCHIVE_DIR ]; then
   tar -xzf "${CACHE_DIR}/${LUA_ARCHIVE}" -C "${CACHE_DIR}/${LUA_ARCHIVE_DIR}" --strip-components=1
   echo "       Done"
 fi
-make linux
+
+echo "\n\nMAKE ---> ${CACHE_DIR}/${LUA_ARCHIVE_DIR}\n\n"
 make -sC "${CACHE_DIR}/${LUA_ARCHIVE_DIR}" \
   INSTALL_TOP=/opt/lua53 \
   install
