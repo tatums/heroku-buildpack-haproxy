@@ -63,7 +63,7 @@ make -sC "${CACHE_DIR}/${HAPROXY_ARCHIVE_DIR}" \
 	USE_OPENSSL=1 \
 	USE_ZLIB=1 \
   PREFIX=$BUILD_DIR \
-  USE_LUA=1 \
+#  USE_LUA=1 \
 	all \
 	install-bin
 
