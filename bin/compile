@@ -46,6 +46,8 @@ if [ ! -d $CACHE_DIR/$LUA_ARCHIVE_DIR ]; then
   echo "       Done"
 fi
 
+make -sC "${CACHE_DIR}/${LUA_ARCHIVE_DIR}" \
+  install
 ### END LUA
 
 
