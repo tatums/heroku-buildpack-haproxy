@@ -9,7 +9,8 @@ LUA_MAJOR=5.3
 LUA_VERSION=5.3.4
 LUA_MD5=53a9c68bcc0eda58bdc2095ad5cdfc63
 
-
+LUA_ARCHIVE=haproxy-${LUA_VERSION}.tar.gz
+LUA_ARCHIVE_DIR=haproxy-${LUA_VERSION}
 
 
 HAPROXY_MAJOR=1.8
@@ -24,12 +25,27 @@ echo
 mkdir -p $CACHE_DIR
 
 
-
 ### START LUA
-#echo "-----> Downloading ${HAPROXY_ARCHIVE} from http://www.lua.org ..."
-#curl -sSL "http://www.lua.org/ftp/lua-5.3.4.tar.gz" -o "${CACHE_DIR}/lua-5.3.4.tar.gz"
-#echo "       Done"
-#tar -xzf "${CACHE_DIR}/lua-5.3.4.tar.gz" -C "${CACHE_DIR}/lua-5.3.4" --strip-components=1
+if [ ! -e $CACHE_DIR/$LUA_ARCHIVE ]; then
+  echo "-----> Downloading ${LUA_ARCHIVE} from http://www.lua.org ..."
+  curl -sSL "http://www.lua.org/ftp/${LUA_ARCHIVE}" -o "${CACHE_DIR}/${LUA_ARCHIVE}"
+  echo "       Done"
+else
+  echo "-----> Using a locally cached copy of ${LUA_ARCHIVE}"
+fi
+
+if ! (echo "${LUA_MD5}  ${CACHE_DIR}/${LUA_ARCHIVE}" | md5sum -c --quiet); then
+  echo " !     Failed to verify authenticity of ${LUA_ARCHIVE} (should be ${LUA_MD5})"
+  exit 1
+fi
+
+if [ ! -d $CACHE_DIR/$LUA_ARCHIVE_DIR ]; then
+  echo "-----> Unpacking ${LUA_ARCHIVE} to ${CACHE_DIR}/${LUA_ARCHIVE_DIR}"
+  mkdir -p "${CACHE_DIR}/${LUA_ARCHIVE_DIR}"
+  tar -xzf "${CACHE_DIR}/${LUA_ARCHIVE}" -C "${CACHE_DIR}/${LUA_ARCHIVE_DIR}" --strip-components=1
+  echo "       Done"
+fi
+
 ### END LUA
 
 
