@@ -15,6 +15,13 @@ echo
 
 mkdir -p $CACHE_DIR
 
+echo "\nhello there\n"
+apt-get install software-properties-common
+add-apt-repository ppa:vbernat/haproxy-1.8
+apt-get update
+apt-get install haproxy
+
+
 if [ ! -e $CACHE_DIR/$ARCHIVE ]; then
   echo "-----> Downloading ${ARCHIVE} from http://www.haproxy.org/..."
   curl -sSL "http://www.haproxy.org/download/${HAPROXY_MAJOR}/src/haproxy-${HAPROXY_VERSION}.tar.gz" -o $CACHE_DIR/$ARCHIVE
