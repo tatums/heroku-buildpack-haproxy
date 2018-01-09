@@ -16,6 +16,7 @@ echo
 mkdir -p $CACHE_DIR
 
 echo "\nhello there\n"
+apt-get update
 apt-get install software-properties-common
 add-apt-repository ppa:vbernat/haproxy-1.8
 apt-get update
